@@ -21,7 +21,7 @@ include { ANNOTATE } from './modules/annotation.nf' \
 workflow WGS {
     take:
 	reads
-	
+
     main:
 	// Preprocessing
 	trimmed = TRIMMING(reads)

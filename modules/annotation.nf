@@ -14,14 +14,16 @@ workflow ANNOTATE {
 		HMMER_HMMSCAN(proteins, pfam_db)
 	}
 
-	gtdbtk_db = file(params.gtdbtk_db).isDirectory() ?
-		file("$params.gtdbtk_db/db") :
-		GTDBTK_DOWNLOAD()
+	if (!params.skip_gtdbtk) {
+		gtdbtk_db = file(params.gtdbtk_db).isDirectory() ?
+			file("$params.gtdbtk_db/db") :
+			GTDBTK_DOWNLOAD()
 
-	GTDBTK(
-		bins.map{it[1]}.buffer(size: 1000, remainder: true),
-		gtdbtk_db
-	)
+		GTDBTK(
+			bins.map{it[1]}.buffer(size: 1000, remainder: true),
+			gtdbtk_db
+		)
+	}
 }
 
 /*
@@ -96,8 +98,7 @@ process HMMER_HMMSCAN {
 process GTDBTK_DOWNLOAD {
 	publishDir "$params.gtdbtk_db", mode: "copy"
 	container "quay.io/biocontainers/gtdbtk:2.0.0--pyhdfd78af_1"
-	label "low_computation"
-	time "2.h"
+	label "medium_computation"
 
 	output:
 	path "db"

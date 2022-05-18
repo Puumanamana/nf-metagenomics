@@ -1,4 +1,4 @@
-// Help function for WGS pipeline
+// Help function for metagenomics pipeline
 
 def helpMessage() {
 	log.info"""

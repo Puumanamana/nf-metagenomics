@@ -4,10 +4,11 @@
 
 workflow ANNOTATE {
 	take:
+	contigs
 	bins
 
 	main:
-	proteins = PRODIGAL(bins).faa
+	proteins = PRODIGAL(contigs).faa
 
 	if (params.amr_detection) {
 		pfam_db = Channel.fromPath("$params.pfam_db_dir/*").collect()

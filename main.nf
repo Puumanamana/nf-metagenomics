@@ -51,7 +51,7 @@ workflow WGS {
 	}
 
 	// Annotation
-	ANNOTATE(bins)
+	ANNOTATE(merged, bins)
 }
 
 workflow {

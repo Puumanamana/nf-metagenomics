@@ -3,6 +3,7 @@ nextflow.enable.dsl=2
 // Functions
 include { helpMessage ; saveParams } from "./util.nf"
 
+// Modules and workflows
 include { TRIMMING } from './modules/trimming.nf' \
 	addParams(outdir: "${params.outdir}/trimming")
 include { ASSEMBLY } from './modules/assembly.nf' \
